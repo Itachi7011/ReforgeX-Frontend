@@ -1,120 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { useState, useContext, useEffect } from 'react'
 import './App.css'
+import { ThemeContext } from './context/ThemeContext';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import "./css/Users/auth.css"
+import "./css/Employers/auth.css"
+
+import "./css/Components/Footer.css"
+import "./css/Components/Navbar.css"
+import "./css/Components/ErrorPage.css"
+import "./css/Components/FloatingActionButton.css"
+
+
+import Navbar from './components/layout/navbar';
+import Footer from './components/layout/footer';
+
+import Error404 from './components/error/Error404';
+// import FloatingActionButton from './components/layout/floatingActionButtion';
+
+import UserSigup from './pages/users/auth/signup'
+import UserLogin from './pages/users/auth/login'
+import UserForgotPassword from './pages/users/auth/forgotPassword'
+import UserVerify from './pages/users/auth/verify'
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { isDarkMode } = useContext(ThemeContext);
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+                <div className={isDarkMode ? 'dark' : 'light'}>
+         <Router>
 
-      <div className="ticks"></div>
+ {/* {token1 ? <AdminNavbar /> : <Navbar />} */}
+          {/* <AdminSidebar /> */}
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+         <Navbar />
+          {/* <FloatingActionButton /> */}
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+          {/* <AdminNavSidebar /> */}
+          <Routes>
+            {/* <Route path="/" element={<Homepage />} /> */}
+            <Route path="/user/auth/signup" element={<UserSigup />} />
+            <Route path="/user/auth/login" element={<UserLogin />} />
+            <Route path="/user/auth/forgot-password" element={<UserForgotPassword />} />
+            <Route path="/user/auth/verify" element={<UserVerify />} />
+            
+
+
+            
+
+
+            <Route path="*" element={<Error404 />} />
+          </Routes>
+
+          <Footer />
+        </Router>
+      </div>
     </>
   )
 }

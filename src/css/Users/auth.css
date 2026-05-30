@@ -1,0 +1,1032 @@
+/* ============================================================
+   ReforgeX — usersAuth.css
+   Shared styles for: Signup, Login, ForgotPassword/Reset,
+   Email & Phone Verification pages
+   ============================================================ */
+
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+  /* Brand */
+  --rfx-amber:        #F5A623;
+  --rfx-amber-bright: #FFB84D;
+  --rfx-amber-dim:    #C47F0A;
+  --rfx-amber-glow:   rgba(245, 166, 35, 0.18);
+  --rfx-amber-subtle: rgba(245, 166, 35, 0.08);
+
+  /* Dark mode (default) */
+  --rfx-bg-primary:   #0D0D0F;
+  --rfx-bg-secondary: #141418;
+  --rfx-bg-card:      #1A1A20;
+  --rfx-bg-input:     #111115;
+  --rfx-bg-hover:     #1E1E26;
+  --rfx-border:       #2A2A34;
+  --rfx-border-focus: #F5A623;
+  --rfx-text-primary: #F0EEE8;
+  --rfx-text-secondary: #8A8A9A;
+  --rfx-text-muted:   #555568;
+  --rfx-text-label:   #BCBCCC;
+  --rfx-error:        #FF5252;
+  --rfx-error-bg:     rgba(255, 82, 82, 0.10);
+  --rfx-success:      #3DDC84;
+  --rfx-success-bg:   rgba(61, 220, 132, 0.10);
+  --rfx-divider:      #22222C;
+
+  /* Typography */
+  --rfx-font-display: 'Bebas Neue', sans-serif;
+  --rfx-font-body:    'DM Sans', sans-serif;
+  --rfx-font-mono:    'JetBrains Mono', monospace;
+
+  /* Spacing */
+  --rfx-radius-sm:  6px;
+  --rfx-radius-md:  12px;
+  --rfx-radius-lg:  20px;
+  --rfx-radius-xl:  28px;
+
+  /* Shadows */
+  --rfx-shadow-card:  0 8px 48px rgba(0,0,0,0.55), 0 1px 0 rgba(255,255,255,0.04) inset;
+  --rfx-shadow-amber: 0 0 32px rgba(245,166,35,0.20), 0 0 8px rgba(245,166,35,0.12);
+  --rfx-shadow-input: 0 2px 12px rgba(0,0,0,0.30);
+
+  /* Transitions */
+  --rfx-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --rfx-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Light Mode Overrides ── */
+.rfx-auth-root.light {
+  --rfx-bg-primary:   #F4F2EE;
+  --rfx-bg-secondary: #EAE8E2;
+  --rfx-bg-card:      #FFFFFF;
+  --rfx-bg-input:     #F8F6F2;
+  --rfx-bg-hover:     #F0EDE6;
+  --rfx-border:       #DDD8CE;
+  --rfx-border-focus: #F5A623;
+  --rfx-text-primary: #111110;
+  --rfx-text-secondary: #5A5850;
+  --rfx-text-muted:   #A09A90;
+  --rfx-text-label:   #3A3830;
+  --rfx-error:        #D93025;
+  --rfx-error-bg:     rgba(217, 48, 37, 0.08);
+  --rfx-success:      #1E8E3E;
+  --rfx-success-bg:   rgba(30, 142, 62, 0.08);
+  --rfx-divider:      #E0DDD6;
+  --rfx-shadow-card:  0 8px 48px rgba(0,0,0,0.10), 0 1px 0 rgba(255,255,255,0.90) inset;
+  --rfx-shadow-amber: 0 0 24px rgba(245,166,35,0.16), 0 0 6px rgba(245,166,35,0.10);
+  --rfx-shadow-input: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* ── Base Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Root Wrapper ── */
+.rfx-auth-root {
+  min-height: 100vh;
+  width: 100%;
+  font-family: var(--rfx-font-body);
+  background-color: var(--rfx-bg-primary);
+  color: var(--rfx-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.4s var(--rfx-ease), color 0.4s var(--rfx-ease);
+}
+
+/* ── Geometric Background ── */
+.rfx-auth-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.rfx-auth-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--rfx-divider) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rfx-divider) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.4;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+.rfx-auth-bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.12;
+}
+.rfx-auth-bg-orb-1 {
+  width: 600px; height: 600px;
+  background: var(--rfx-amber);
+  top: -20%; left: -15%;
+  animation: rfx-orb-drift 20s ease-in-out infinite alternate;
+}
+.rfx-auth-bg-orb-2 {
+  width: 400px; height: 400px;
+  background: var(--rfx-amber-bright);
+  bottom: -10%; right: -10%;
+  animation: rfx-orb-drift 26s ease-in-out infinite alternate-reverse;
+}
+.rfx-auth-bg-orb-3 {
+  width: 300px; height: 300px;
+  background: #FF7A20;
+  top: 50%; right: 20%;
+  animation: rfx-orb-drift 18s ease-in-out infinite alternate;
+  opacity: 0.06;
+}
+
+@keyframes rfx-orb-drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(40px, 30px) scale(1.08); }
+}
+
+.rfx-auth-bg-lines {
+  position: absolute;
+  inset: 0;
+}
+.rfx-auth-bg-lines::before,
+.rfx-auth-bg-lines::after {
+  content: '';
+  position: absolute;
+  background: linear-gradient(135deg, transparent 40%, var(--rfx-amber-glow) 50%, transparent 60%);
+  animation: rfx-line-sweep 8s ease-in-out infinite;
+}
+.rfx-auth-bg-lines::before {
+  inset: 0;
+  animation-delay: 0s;
+}
+.rfx-auth-bg-lines::after {
+  inset: 0;
+  animation-delay: 4s;
+  opacity: 0.5;
+}
+@keyframes rfx-line-sweep {
+  0%, 100% { opacity: 0; transform: translateX(-100%); }
+  50%       { opacity: 1; transform: translateX(100%); }
+}
+
+/* ── Theme Toggle Button ── */
+.rfx-theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  background: var(--rfx-bg-card);
+  border: 1px solid var(--rfx-border);
+  color: var(--rfx-text-secondary);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s var(--rfx-ease);
+  box-shadow: var(--rfx-shadow-card);
+}
+.rfx-theme-toggle:hover {
+  border-color: var(--rfx-amber);
+  color: var(--rfx-amber);
+  box-shadow: var(--rfx-shadow-amber);
+  transform: rotate(15deg);
+}
+
+/* ── Page Content Wrapper ── */
+.rfx-auth-page {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+/* ── Card ── */
+.rfx-auth-card {
+  background: var(--rfx-bg-card);
+  border: 1px solid var(--rfx-border);
+  border-radius: var(--rfx-radius-xl);
+  box-shadow: var(--rfx-shadow-card);
+  padding: 48px 44px;
+  width: 100%;
+  max-width: 680px;
+  position: relative;
+  overflow: hidden;
+  animation: rfx-card-in 0.6s var(--rfx-ease-out) both;
+  transition: background-color 0.4s var(--rfx-ease), border-color 0.4s var(--rfx-ease);
+}
+.rfx-auth-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rfx-amber), transparent);
+  opacity: 0.6;
+}
+.rfx-auth-card::after {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, var(--rfx-amber-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+@keyframes rfx-card-in {
+  from { opacity: 0; transform: translateY(28px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Wide card for verification page */
+.rfx-auth-card.rfx-auth-card--wide {
+  max-width: 560px;
+}
+
+/* ── Brand Header ── */
+.rfx-auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+.rfx-auth-brand-logo {
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(135deg, var(--rfx-amber), var(--rfx-amber-dim));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  box-shadow: var(--rfx-shadow-amber);
+  flex-shrink: 0;
+}
+.rfx-auth-brand-name {
+  font-family: var(--rfx-font-display);
+  font-size: 28px;
+  letter-spacing: 2px;
+  color: var(--rfx-text-primary);
+  transition: color 0.4s var(--rfx-ease);
+}
+.rfx-auth-brand-name span {
+  color: var(--rfx-amber);
+}
+
+/* ── Page Title / Subtitle ── */
+.rfx-auth-heading {
+  font-family: var(--rfx-font-display);
+  font-size: 34px;
+  letter-spacing: 1.5px;
+  color: var(--rfx-text-primary);
+  line-height: 1.1;
+  margin-bottom: 8px;
+  transition: color 0.4s var(--rfx-ease);
+}
+.rfx-auth-heading span {
+  color: var(--rfx-amber);
+}
+.rfx-auth-subtext {
+  font-size: 14px;
+  color: var(--rfx-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 32px;
+  transition: color 0.4s var(--rfx-ease);
+}
+
+/* ── Step Indicator (for multi-step flows) ── */
+.rfx-auth-steps {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.rfx-auth-step {
+  flex: 1;
+  height: 3px;
+  background: var(--rfx-border);
+  border-radius: 99px;
+  transition: background 0.4s var(--rfx-ease);
+}
+.rfx-auth-step.active {
+  background: var(--rfx-amber);
+  box-shadow: 0 0 8px var(--rfx-amber-glow);
+}
+.rfx-auth-step.done {
+  background: var(--rfx-amber-dim);
+}
+
+/* ── Form Group ── */
+.rfx-auth-form-group {
+  margin-bottom: 20px;
+}
+.rfx-auth-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--rfx-text-label);
+  margin-bottom: 8px;
+  transition: color 0.4s var(--rfx-ease);
+}
+
+/* ── Input Wrapper ── */
+.rfx-auth-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.rfx-auth-input-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--rfx-text-muted);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  transition: color 0.3s var(--rfx-ease);
+}
+.rfx-auth-input-icon-right {
+  position: absolute;
+  right: 14px;
+  color: var(--rfx-text-muted);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.3s var(--rfx-ease);
+}
+.rfx-auth-input-icon-right:hover {
+  color: var(--rfx-amber);
+}
+
+/* ── Input ── */
+.rfx-auth-input {
+  width: 100%;
+  background: var(--rfx-bg-input);
+  border: 1px solid var(--rfx-border);
+  border-radius: var(--rfx-radius-md);
+  color: var(--rfx-text-primary);
+  font-family: var(--rfx-font-body);
+  font-size: 15px;
+  padding: 13px 16px 13px 44px;
+  outline: none;
+  transition: all 0.25s var(--rfx-ease);
+  box-shadow: var(--rfx-shadow-input);
+  -webkit-appearance: none;
+}
+.rfx-auth-input:focus {
+  border-color: var(--rfx-border-focus);
+  box-shadow: var(--rfx-shadow-input), 0 0 0 3px var(--rfx-amber-subtle);
+  background: var(--rfx-bg-hover);
+}
+.rfx-auth-input:focus ~ .rfx-auth-input-icon,
+.rfx-auth-input-wrap:focus-within .rfx-auth-input-icon {
+  color: var(--rfx-amber);
+}
+.rfx-auth-input::placeholder {
+  color: var(--rfx-text-muted);
+  font-size: 14px;
+}
+.rfx-auth-input.rfx-input-error {
+  border-color: var(--rfx-error);
+  box-shadow: 0 0 0 3px var(--rfx-error-bg);
+}
+.rfx-auth-input.rfx-input-success {
+  border-color: var(--rfx-success);
+  box-shadow: 0 0 0 3px var(--rfx-success-bg);
+}
+
+/* Input without left icon */
+.rfx-auth-input.rfx-no-icon-left {
+  padding-left: 16px;
+}
+
+/* Password toggle padding */
+.rfx-auth-input.rfx-with-right-icon {
+  padding-right: 44px;
+}
+
+/* ── Field Hint / Error Text ── */
+.rfx-auth-field-msg {
+  margin-top: 6px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.rfx-auth-field-msg.error { color: var(--rfx-error); }
+.rfx-auth-field-msg.success { color: var(--rfx-success); }
+.rfx-auth-field-msg.hint { color: var(--rfx-text-muted); }
+
+/* ── Password Strength ── */
+.rfx-auth-strength {
+  margin-top: 10px;
+}
+.rfx-auth-strength-bars {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+.rfx-auth-strength-bar {
+  flex: 1;
+  height: 3px;
+  border-radius: 99px;
+  background: var(--rfx-border);
+  transition: background 0.4s var(--rfx-ease);
+}
+.rfx-auth-strength-bar.weak   { background: #FF5252; }
+.rfx-auth-strength-bar.fair   { background: #FFB84D; }
+.rfx-auth-strength-bar.good   { background: #3DDC84; }
+.rfx-auth-strength-bar.strong { background: #00C9A7; }
+.rfx-auth-strength-label {
+  font-size: 11px;
+  color: var(--rfx-text-muted);
+  font-family: var(--rfx-font-mono);
+}
+
+/* ── Row (for name fields side-by-side) ── */
+.rfx-auth-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* ── Checkbox / Role select ── */
+.rfx-auth-role-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.rfx-auth-role-option {
+  position: relative;
+}
+.rfx-auth-role-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.rfx-auth-role-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 10px;
+  background: var(--rfx-bg-input);
+  border: 1px solid var(--rfx-border);
+  border-radius: var(--rfx-radius-md);
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--rfx-text-secondary);
+  transition: all 0.25s var(--rfx-ease);
+  text-align: center;
+}
+.rfx-auth-role-label:hover {
+  border-color: var(--rfx-amber-dim);
+  color: var(--rfx-text-primary);
+}
+.rfx-auth-role-option input:checked + .rfx-auth-role-label {
+  border-color: var(--rfx-amber);
+  background: var(--rfx-amber-subtle);
+  color: var(--rfx-amber);
+  box-shadow: 0 0 0 1px var(--rfx-amber);
+}
+.rfx-auth-role-icon {
+  color: inherit;
+}
+
+/* ── Terms checkbox ── */
+.rfx-auth-checkbox-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.rfx-auth-checkbox-wrap input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--rfx-amber);
+  flex-shrink: 0;
+  margin-top: 2px;
+  cursor: pointer;
+}
+.rfx-auth-checkbox-wrap label {
+  font-size: 13px;
+  color: var(--rfx-text-secondary);
+  line-height: 1.5;
+  cursor: pointer;
+}
+.rfx-auth-checkbox-wrap label a {
+  color: var(--rfx-amber);
+  text-decoration: none;
+  font-weight: 500;
+}
+.rfx-auth-checkbox-wrap label a:hover {
+  text-decoration: underline;
+}
+
+/* ── Primary Button ── */
+.rfx-auth-btn {
+  width: 100%;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, var(--rfx-amber) 0%, var(--rfx-amber-dim) 100%);
+  color: #000;
+  font-family: var(--rfx-font-display);
+  font-size: 18px;
+  letter-spacing: 1.5px;
+  border: none;
+  border-radius: var(--rfx-radius-md);
+  cursor: pointer;
+  transition: all 0.28s var(--rfx-ease);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(245, 166, 35, 0.30);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.rfx-auth-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.28s var(--rfx-ease);
+}
+.rfx-auth-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(245, 166, 35, 0.45);
+}
+.rfx-auth-btn:hover::before { opacity: 1; }
+.rfx-auth-btn:active { transform: translateY(0); box-shadow: 0 2px 12px rgba(245,166,35,0.30); }
+.rfx-auth-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Secondary / Ghost button */
+.rfx-auth-btn-ghost {
+  width: 100%;
+  padding: 13px 24px;
+  background: transparent;
+  color: var(--rfx-text-secondary);
+  font-family: var(--rfx-font-body);
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid var(--rfx-border);
+  border-radius: var(--rfx-radius-md);
+  cursor: pointer;
+  transition: all 0.25s var(--rfx-ease);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.rfx-auth-btn-ghost:hover {
+  border-color: var(--rfx-amber-dim);
+  color: var(--rfx-amber);
+  background: var(--rfx-amber-subtle);
+}
+
+/* Small inline button */
+.rfx-auth-btn-sm {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, var(--rfx-amber) 0%, var(--rfx-amber-dim) 100%);
+  color: #000;
+  font-family: var(--rfx-font-display);
+  font-size: 14px;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: var(--rfx-radius-sm);
+  cursor: pointer;
+  transition: all 0.25s var(--rfx-ease);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.rfx-auth-btn-sm:hover { opacity: 0.88; transform: translateY(-1px); }
+.rfx-auth-btn-sm:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* Resend / text button */
+.rfx-auth-btn-text {
+  background: none;
+  border: none;
+  color: var(--rfx-amber);
+  font-family: var(--rfx-font-body);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.2s;
+}
+.rfx-auth-btn-text:hover { opacity: 0.75; }
+.rfx-auth-btn-text:disabled { color: var(--rfx-text-muted); cursor: not-allowed; }
+
+/* Loading spinner inside button */
+.rfx-btn-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(0,0,0,0.25);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: rfx-spin 0.7s linear infinite;
+}
+@keyframes rfx-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Divider ── */
+.rfx-auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0;
+}
+.rfx-auth-divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--rfx-divider);
+}
+.rfx-auth-divider-text {
+  font-size: 12px;
+  color: var(--rfx-text-muted);
+  letter-spacing: 0.5px;
+  font-family: var(--rfx-font-mono);
+  white-space: nowrap;
+}
+
+/* ── Social OAuth Buttons ── */
+.rfx-auth-oauth {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.rfx-auth-oauth-btn {
+  width: 100%;
+  padding: 12px 20px;
+  background: var(--rfx-bg-input);
+  border: 1px solid var(--rfx-border);
+  border-radius: var(--rfx-radius-md);
+  color: var(--rfx-text-primary);
+  font-family: var(--rfx-font-body);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.25s var(--rfx-ease);
+}
+.rfx-auth-oauth-btn:hover {
+  border-color: var(--rfx-amber-dim);
+  background: var(--rfx-bg-hover);
+  transform: translateY(-1px);
+}
+
+/* ── Footer links ── */
+.rfx-auth-footer {
+  margin-top: 28px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--rfx-text-secondary);
+  line-height: 1.6;
+  transition: color 0.4s var(--rfx-ease);
+}
+.rfx-auth-footer a {
+  color: var(--rfx-amber);
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+.rfx-auth-footer a:hover { opacity: 0.75; }
+
+/* ── Forgot password link ── */
+.rfx-auth-forgot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
+.rfx-auth-forgot a {
+  font-size: 13px;
+  color: var(--rfx-text-secondary);
+  text-decoration: none;
+  transition: color 0.25s var(--rfx-ease);
+}
+.rfx-auth-forgot a:hover { color: var(--rfx-amber); }
+
+/* ── Alert Banner ── */
+.rfx-auth-alert {
+  padding: 12px 16px;
+  border-radius: var(--rfx-radius-md);
+  font-size: 13px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.rfx-auth-alert.error {
+  background: var(--rfx-error-bg);
+  border: 1px solid rgba(255,82,82,0.25);
+  color: var(--rfx-error);
+}
+.rfx-auth-alert.success {
+  background: var(--rfx-success-bg);
+  border: 1px solid rgba(61,220,132,0.25);
+  color: var(--rfx-success);
+}
+.rfx-auth-alert.info {
+  background: var(--rfx-amber-subtle);
+  border: 1px solid var(--rfx-amber-glow);
+  color: var(--rfx-amber);
+}
+
+/* ── OTP Input Group ── */
+.rfx-otp-group {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+}
+.rfx-otp-input {
+  width: 52px;
+  height: 58px;
+  text-align: center;
+  font-family: var(--rfx-font-mono);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--rfx-text-primary);
+  background: var(--rfx-bg-input);
+  border: 1px solid var(--rfx-border);
+  border-radius: var(--rfx-radius-md);
+  outline: none;
+  transition: all 0.25s var(--rfx-ease);
+  caret-color: var(--rfx-amber);
+  -webkit-appearance: none;
+}
+.rfx-otp-input:focus {
+  border-color: var(--rfx-amber);
+  box-shadow: 0 0 0 3px var(--rfx-amber-subtle), var(--rfx-shadow-amber);
+  background: var(--rfx-bg-hover);
+}
+.rfx-otp-input.filled {
+  border-color: var(--rfx-amber-dim);
+  color: var(--rfx-amber);
+}
+.rfx-otp-input.rfx-input-success {
+  border-color: var(--rfx-success);
+  box-shadow: 0 0 0 3px var(--rfx-success-bg);
+}
+.rfx-otp-separator {
+  display: flex;
+  align-items: center;
+  color: var(--rfx-text-muted);
+  font-size: 20px;
+}
+
+/* ── Resend Row ── */
+.rfx-auth-resend-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--rfx-text-muted);
+}
+.rfx-auth-timer {
+  font-family: var(--rfx-font-mono);
+  font-size: 13px;
+  color: var(--rfx-amber);
+}
+
+/* ── Tabs (for Verification page) ── */
+.rfx-verify-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--rfx-bg-input);
+  border: 1px solid var(--rfx-border);
+  border-radius: var(--rfx-radius-md);
+  padding: 4px;
+  margin-bottom: 32px;
+}
+.rfx-verify-tab {
+  flex: 1;
+  padding: 10px 14px;
+  background: transparent;
+  border: none;
+  border-radius: calc(var(--rfx-radius-md) - 4px);
+  font-family: var(--rfx-font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--rfx-text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition: all 0.28s var(--rfx-ease);
+  letter-spacing: 0.3px;
+}
+.rfx-verify-tab.active {
+  background: var(--rfx-bg-card);
+  color: var(--rfx-amber);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.rfx-verify-tab:not(.active):hover {
+  color: var(--rfx-text-secondary);
+  background: var(--rfx-bg-hover);
+}
+
+/* ── Verify Status badge ── */
+.rfx-verify-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.rfx-verify-status.pending {
+  background: var(--rfx-amber-subtle);
+  color: var(--rfx-amber);
+  border: 1px solid var(--rfx-amber-glow);
+}
+.rfx-verify-status.verified {
+  background: var(--rfx-success-bg);
+  color: var(--rfx-success);
+  border: 1px solid rgba(61,220,132,0.25);
+}
+
+/* ── Success checkmark animation ── */
+.rfx-verify-success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: var(--rfx-success-bg);
+  border: 2px solid var(--rfx-success);
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  color: var(--rfx-success);
+  animation: rfx-pop 0.4s var(--rfx-ease-out) both;
+}
+@keyframes rfx-pop {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+/* ── Phone input group ── */
+.rfx-phone-wrap {
+  display: flex;
+  gap: 10px;
+}
+.rfx-country-code-select {
+  flex-shrink: 0;
+  width: 90px;
+  background: var(--rfx-bg-input);
+  border: 1px solid var(--rfx-border);
+  border-radius: var(--rfx-radius-md);
+  color: var(--rfx-text-primary);
+  font-family: var(--rfx-font-mono);
+  font-size: 14px;
+  padding: 0 10px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.25s var(--rfx-ease);
+  -webkit-appearance: none;
+}
+.rfx-country-code-select:focus {
+  border-color: var(--rfx-amber);
+}
+
+/* ── Forgot/Reset multi-step card ── */
+.rfx-auth-step-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.rfx-auth-back-btn {
+  background: none;
+  border: 1px solid var(--rfx-border);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--rfx-text-secondary);
+  flex-shrink: 0;
+  transition: all 0.25s var(--rfx-ease);
+}
+.rfx-auth-back-btn:hover {
+  border-color: var(--rfx-amber);
+  color: var(--rfx-amber);
+}
+
+/* ── Badge / Tag ── */
+.rfx-auth-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  background: var(--rfx-amber-subtle);
+  border: 1px solid var(--rfx-amber-glow);
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--rfx-amber);
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+/* ── Masked email / phone display ── */
+.rfx-auth-masked {
+  font-family: var(--rfx-font-mono);
+  font-size: 14px;
+  color: var(--rfx-text-primary);
+  background: var(--rfx-bg-input);
+  border: 1px solid var(--rfx-border);
+  border-radius: var(--rfx-radius-sm);
+  padding: 8px 12px;
+  display: inline-block;
+  margin: 8px 0 20px;
+  letter-spacing: 0.5px;
+}
+
+/* ── Helper description under heading ── */
+.rfx-auth-desc {
+  font-size: 13px;
+  color: var(--rfx-text-muted);
+  line-height: 1.65;
+  margin-bottom: 28px;
+  padding: 14px 16px;
+  background: var(--rfx-amber-subtle);
+  border-left: 3px solid var(--rfx-amber);
+  border-radius: 0 var(--rfx-radius-sm) var(--rfx-radius-sm) 0;
+}
+
+/* ── Slide-in panel transition ── */
+.rfx-auth-panel {
+  animation: rfx-panel-in 0.35s var(--rfx-ease-out) both;
+}
+@keyframes rfx-panel-in {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ═══════════════════════
+   RESPONSIVE
+═══════════════════════ */
+@media (max-width: 540px) {
+  .rfx-auth-card {
+    padding: 32px 22px;
+    border-radius: var(--rfx-radius-lg);
+    margin: 12px;
+  }
+  .rfx-auth-heading { font-size: 26px; }
+  .rfx-auth-brand-name { font-size: 22px; }
+  .rfx-auth-row { grid-template-columns: 1fr; gap: 0; }
+  .rfx-auth-role-grid { grid-template-columns: 1fr 1fr; }
+  .rfx-otp-input { width: 42px; height: 50px; font-size: 20px; }
+  .rfx-otp-group { gap: 8px; }
+  .rfx-auth-card.rfx-auth-card--wide { max-width: 100%; }
+}
+
+@media (max-width: 380px) {
+  .rfx-auth-card { padding: 28px 16px; }
+  .rfx-otp-input { width: 36px; height: 44px; font-size: 18px; }
+  .rfx-otp-group { gap: 6px; }
+  .rfx-auth-btn  { font-size: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

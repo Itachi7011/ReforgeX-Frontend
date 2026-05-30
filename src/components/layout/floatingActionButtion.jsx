@@ -17,9 +17,6 @@ import {
     Globe,
     Smartphone,
     Mail,
-    Facebook,
-    Twitter,
-    Linkedin,
     Link2,
     MessageSquare,
     LogIn,
@@ -34,8 +31,9 @@ import {
     AlertTriangle, // Add this import
     Eye
 } from 'lucide-react';
-import { ThemeContext } from '../context/ThemeContext';
-import { UserContext } from "../context/UserContext";
+import { FaGithub, FaLinkedin, FaXTwitter, FaFacebook } from "react-icons/fa6";
+import { ThemeContext } from '../../context/ThemeContext';
+import { UserContext } from "../../context/user_context";
 import Swal from 'sweetalert2';
 
 const FloatingActionButton = () => {
@@ -252,19 +250,19 @@ const FloatingActionButton = () => {
         {
             id: 'share-facebook',
             label: 'Facebook',
-            icon: <Facebook size={18} />,
+            icon: <FaFacebook size={18} />,
             action: () => shareOnPlatform('facebook')
         },
         {
             id: 'share-twitter',
             label: 'Twitter',
-            icon: <Twitter size={18} />,
+            icon: <FaXTwitter size={18} />,
             action: () => shareOnPlatform('twitter')
         },
         {
             id: 'share-linkedin',
-            label: 'LinkedIn',
-            icon: <Linkedin size={18} />,
+            label: 'Linkedin',
+            icon: <FaLinkedin size={18} />,
             action: () => shareOnPlatform('linkedin')
         },
         {

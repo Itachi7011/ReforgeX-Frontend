@@ -9,10 +9,6 @@ import {
   Mail,
   Phone,
   MapPin,
-  Linkedin,
-  Twitter,
-  Github,
-  Youtube,
   ArrowUpRight,
   Zap,
   Lock,
@@ -30,6 +26,7 @@ import {
   Star,
   Award,
 } from "lucide-react";
+import { FaGithub, FaLinkedin, FaXTwitter, FaYoutube } from "react-icons/fa6";
 
 const ReforgeXFooter = () => {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -97,10 +94,10 @@ const ReforgeXFooter = () => {
   ];
 
   const socialLinks = [
-    { icon: <Linkedin size={18} />, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: <Twitter size={18} />, href: "https://twitter.com", label: "Twitter / X" },
-    { icon: <Github size={18} />, href: "https://github.com", label: "GitHub" },
-    { icon: <Youtube size={18} />, href: "https://youtube.com", label: "YouTube" },
+    { icon: <FaLinkedin size={18} />, href: "https://linkedin.com", label: "LinkedIn" },
+    { icon: <FaXTwitter size={18} />, href: "https://twitter.com", label: "Twitter / X" },
+    { icon: <FaGithub size={18} />, href: "https://github.com", label: "GitHub" },
+    { icon: <FaYoutube size={18} />, href: "https://youtube.com", label: "YouTube" },
   ];
 
   const stats = [
