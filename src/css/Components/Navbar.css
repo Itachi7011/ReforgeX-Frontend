@@ -1,0 +1,840 @@
+/* ============================================================
+   REFORGEX — NAVBAR CSS
+   Industrial-Tech Premium Design
+   Naming convention: rfx-navbar-{element}
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap");
+
+/* ── CSS Variables ────────────────────────────────────────── */
+:root {
+  /* Brand */
+  --rfx-nav-cyan: #00e5ff;
+  --rfx-nav-amber: #f59e0b;
+  --rfx-nav-danger: #ef4444;
+  --rfx-nav-green: #22c55e;
+
+  /* Dark mode (default) */
+  --rfx-nav-bg: #080d14;
+  --rfx-nav-bg-glass: rgba(8, 13, 20, 0.92);
+  --rfx-nav-border: rgba(0, 229, 255, 0.12);
+  --rfx-nav-text: #e2e8f0;
+  --rfx-nav-text-muted: #64748b;
+  --rfx-nav-text-dim: #94a3b8;
+  --rfx-nav-hover-bg: rgba(0, 229, 255, 0.07);
+  --rfx-nav-drop-bg: #0d1520;
+  --rfx-nav-drop-border: rgba(0, 229, 255, 0.15);
+  --rfx-nav-drop-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 229, 255, 0.08);
+  --rfx-nav-btn-ghost-bg: rgba(255, 255, 255, 0.04);
+  --rfx-nav-btn-ghost-border: rgba(255, 255, 255, 0.1);
+  --rfx-nav-logo-glow: rgba(0, 229, 255, 0.4);
+  --rfx-nav-overlay: rgba(0, 0, 0, 0.7);
+  --rfx-nav-candidate-accent: #00e5ff;
+  --rfx-nav-employer-accent: #f59e0b;
+  --rfx-nav-mobile-bg: #0a1220;
+}
+
+.light {
+  --rfx-nav-bg: #f8fafc;
+  --rfx-nav-bg-glass: rgba(248, 250, 252, 0.94);
+  --rfx-nav-border: rgba(0, 150, 180, 0.18);
+  --rfx-nav-text: #0f172a;
+  --rfx-nav-text-muted: #64748b;
+  --rfx-nav-text-dim: #475569;
+  --rfx-nav-hover-bg: rgba(0, 150, 180, 0.07);
+  --rfx-nav-drop-bg: #ffffff;
+  --rfx-nav-drop-border: rgba(0, 150, 180, 0.18);
+  --rfx-nav-drop-shadow: 0 20px 50px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 150, 180, 0.12);
+  --rfx-nav-btn-ghost-bg: rgba(0, 0, 0, 0.03);
+  --rfx-nav-btn-ghost-border: rgba(0, 0, 0, 0.12);
+  --rfx-nav-logo-glow: rgba(0, 150, 180, 0.3);
+  --rfx-nav-overlay: rgba(0, 0, 0, 0.3);
+  --rfx-nav-mobile-bg: #ffffff;
+}
+
+/* ── Base Navbar Structure ───────────────────────────────── */
+.rfx-navbar-public-nav,
+.rfx-navbar-candidate-nav,
+.rfx-navbar-employer-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 clamp(16px, 3vw, 32px);
+  background: var(--rfx-nav-bg-glass);
+  border-bottom: 1px solid var(--rfx-nav-border);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  font-family: "DM Sans", sans-serif;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+/* Subtle top accent line */
+.rfx-navbar-public-nav::before,
+.rfx-navbar-candidate-nav::before,
+.rfx-navbar-employer-nav::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--rfx-nav-cyan), transparent);
+  opacity: 0.6;
+}
+
+.rfx-navbar-candidate-nav::before {
+  background: linear-gradient(90deg, transparent, var(--rfx-nav-candidate-accent), transparent);
+}
+
+.rfx-navbar-employer-nav::before {
+  background: linear-gradient(90deg, transparent, var(--rfx-nav-employer-accent), transparent);
+}
+
+/* ── Logo ────────────────────────────────────────────────── */
+.rfx-navbar-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+  margin-right: 28px;
+}
+
+.rfx-navbar-logo-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #00bcd4, #006d82);
+  color: #fff;
+  box-shadow: 0 0 16px var(--rfx-nav-logo-glow), inset 0 1px 0 rgba(255,255,255,0.2);
+  transition: box-shadow 0.3s ease, transform 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.rfx-navbar-logo-icon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+}
+
+.rfx-navbar-logo-icon--candidate {
+  background: linear-gradient(135deg, #00bcd4, #0288d1);
+}
+
+.rfx-navbar-logo-icon--employer {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.rfx-navbar-logo-wrap:hover .rfx-navbar-logo-icon {
+  transform: rotate(-5deg) scale(1.05);
+  box-shadow: 0 0 28px var(--rfx-nav-logo-glow);
+}
+
+.rfx-navbar-logo-text {
+  font-family: "Syne", sans-serif;
+  font-size: clamp(17px, 2.2vw, 22px);
+  font-weight: 800;
+  color: var(--rfx-nav-text);
+  letter-spacing: -0.5px;
+  transition: color 0.3s ease;
+}
+
+.rfx-navbar-logo-x {
+  color: var(--rfx-nav-cyan);
+  text-shadow: 0 0 12px rgba(0, 229, 255, 0.5);
+}
+
+.rfx-navbar-employer-nav .rfx-navbar-logo-x {
+  color: var(--rfx-nav-amber);
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
+}
+
+/* ── Center Nav ──────────────────────────────────────────── */
+.rfx-navbar-center {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+}
+
+@media (max-width: 1023px) {
+  .rfx-navbar-center {
+    display: none;
+  }
+}
+
+/* ── Nav Buttons ─────────────────────────────────────────── */
+.rfx-navbar-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 13px;
+  border-radius: 8px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--rfx-nav-text-dim);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+.rfx-navbar-nav-btn:hover {
+  background: var(--rfx-nav-hover-bg);
+  color: var(--rfx-nav-text);
+}
+
+/* ── Chevron ─────────────────────────────────────────────── */
+.rfx-navbar-chevron {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.6;
+}
+
+.rfx-navbar-chevron--up {
+  transform: rotate(-180deg);
+}
+
+/* ── Mega Dropdown ───────────────────────────────────────── */
+.rfx-navbar-mega {
+  position: relative;
+}
+
+.rfx-navbar-mega-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  min-width: 240px;
+  background: var(--rfx-nav-drop-bg);
+  border: 1px solid var(--rfx-nav-drop-border);
+  border-radius: 14px;
+  box-shadow: var(--rfx-nav-drop-shadow);
+  padding: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px) scale(0.98);
+  transform-origin: top left;
+  transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), visibility 0.22s;
+  pointer-events: none;
+}
+
+.rfx-navbar-mega-panel--right {
+  left: auto;
+  right: 0;
+  transform-origin: top right;
+}
+
+.rfx-navbar-mega--open .rfx-navbar-mega-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.rfx-navbar-mega-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ── Drop Group ──────────────────────────────────────────── */
+.rfx-navbar-drop-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.rfx-navbar-drop-group-label {
+  font-family: "Syne", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--rfx-nav-cyan);
+  padding: 8px 10px 4px;
+  opacity: 0.8;
+}
+
+.rfx-navbar-employer-nav .rfx-navbar-drop-group-label {
+  color: var(--rfx-nav-amber);
+}
+
+/* ── Drop Item ───────────────────────────────────────────── */
+.rfx-navbar-drop-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--rfx-nav-text-dim);
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.rfx-navbar-drop-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) scaleY(0);
+  width: 2px;
+  height: 60%;
+  background: var(--rfx-nav-cyan);
+  border-radius: 2px;
+  transition: transform 0.2s ease;
+}
+
+.rfx-navbar-drop-item:hover::before {
+  transform: translateY(-50%) scaleY(1);
+}
+
+.rfx-navbar-drop-item:hover {
+  background: var(--rfx-nav-hover-bg);
+  color: var(--rfx-nav-text);
+  transform: translateX(3px);
+}
+
+.rfx-navbar-drop-icon {
+  color: var(--rfx-nav-cyan);
+  opacity: 0.7;
+  flex-shrink: 0;
+  transition: opacity 0.2s;
+}
+
+.rfx-navbar-employer-nav .rfx-navbar-drop-icon {
+  color: var(--rfx-nav-amber);
+}
+
+.rfx-navbar-drop-item:hover .rfx-navbar-drop-icon {
+  opacity: 1;
+}
+
+.rfx-navbar-drop-arrow {
+  margin-left: auto;
+  opacity: 0;
+  color: var(--rfx-nav-text-muted);
+  transition: opacity 0.18s, transform 0.18s;
+}
+
+.rfx-navbar-drop-item:hover .rfx-navbar-drop-arrow {
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+/* ── Right Side ──────────────────────────────────────────── */
+.rfx-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+/* ── Theme Toggle ────────────────────────────────────────── */
+.rfx-navbar-theme-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--rfx-nav-btn-ghost-bg);
+  border: 1px solid var(--rfx-nav-btn-ghost-border);
+  color: var(--rfx-nav-text-dim);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.rfx-navbar-theme-btn:hover {
+  background: var(--rfx-nav-hover-bg);
+  color: var(--rfx-nav-cyan);
+  border-color: var(--rfx-nav-cyan);
+  transform: rotate(15deg);
+}
+
+/* ── Icon Button ─────────────────────────────────────────── */
+.rfx-navbar-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--rfx-nav-btn-ghost-bg);
+  border: 1px solid var(--rfx-nav-btn-ghost-border);
+  color: var(--rfx-nav-text-dim);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  position: relative;
+}
+
+.rfx-navbar-icon-btn:hover {
+  background: var(--rfx-nav-hover-bg);
+  color: var(--rfx-nav-text);
+}
+
+.rfx-navbar-notif-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 7px;
+  height: 7px;
+  background: var(--rfx-nav-cyan);
+  border-radius: 50%;
+  border: 1.5px solid var(--rfx-nav-bg);
+  animation: rfx-nav-pulse 2s ease infinite;
+}
+
+@keyframes rfx-nav-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.5); }
+  50% { box-shadow: 0 0 0 4px rgba(0, 229, 255, 0); }
+}
+
+/* ── Action Buttons ──────────────────────────────────────── */
+.rfx-navbar-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 9px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: all 0.22s ease;
+  white-space: nowrap;
+}
+
+.rfx-navbar-btn--ghost {
+  background: var(--rfx-nav-btn-ghost-bg);
+  border: 1px solid var(--rfx-nav-btn-ghost-border);
+  color: var(--rfx-nav-text-dim);
+}
+
+.rfx-navbar-btn--ghost:hover {
+  background: var(--rfx-nav-hover-bg);
+  color: var(--rfx-nav-text);
+  border-color: rgba(0, 229, 255, 0.25);
+}
+
+.rfx-navbar-btn--primary {
+  background: linear-gradient(135deg, #00bcd4, #0097a7);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(0, 188, 212, 0.35);
+}
+
+.rfx-navbar-btn--primary:hover {
+  background: linear-gradient(135deg, #00e5ff, #00bcd4);
+  box-shadow: 0 6px 20px rgba(0, 229, 255, 0.45);
+  transform: translateY(-1px);
+}
+
+.rfx-navbar-btn--amber {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #000;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+}
+
+.rfx-navbar-btn--amber:hover {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 1023px) {
+  .rfx-navbar-btn--hidden-sm {
+    display: none;
+  }
+}
+
+/* ── Auth / Signup Dropdowns ─────────────────────────────── */
+.rfx-navbar-auth-drop,
+.rfx-navbar-signup-drop {
+  position: relative;
+}
+
+.rfx-navbar-auth-panel,
+.rfx-navbar-signup-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 280px;
+  background: var(--rfx-nav-drop-bg);
+  border: 1px solid var(--rfx-nav-drop-border);
+  border-radius: 16px;
+  box-shadow: var(--rfx-nav-drop-shadow);
+  padding: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px) scale(0.97);
+  transform-origin: top right;
+  transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), visibility 0.22s;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.rfx-navbar-auth-drop--open .rfx-navbar-auth-panel,
+.rfx-navbar-signup-drop--open .rfx-navbar-signup-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.rfx-navbar-auth-panel-header {
+  padding: 8px 12px 10px;
+  font-family: "Syne", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--rfx-nav-text-muted);
+  border-bottom: 1px solid var(--rfx-nav-drop-border);
+  margin-bottom: 6px;
+}
+
+.rfx-navbar-auth-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.rfx-navbar-auth-item:hover {
+  transform: translateX(2px);
+}
+
+.rfx-navbar-auth-item--candidate:hover {
+  background: rgba(0, 229, 255, 0.07);
+}
+
+.rfx-navbar-auth-item--employer:hover {
+  background: rgba(245, 158, 11, 0.07);
+}
+
+.rfx-navbar-auth-item--admin:hover {
+  background: rgba(239, 68, 68, 0.07);
+}
+
+.rfx-navbar-auth-item-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.rfx-navbar-auth-item--candidate .rfx-navbar-auth-item-icon {
+  background: rgba(0, 229, 255, 0.1);
+  color: var(--rfx-nav-cyan);
+}
+
+.rfx-navbar-auth-item--employer .rfx-navbar-auth-item-icon {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--rfx-nav-amber);
+}
+
+.rfx-navbar-auth-item--admin .rfx-navbar-auth-item-icon {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--rfx-nav-danger);
+}
+
+.rfx-navbar-auth-item div:last-of-type {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rfx-navbar-auth-item strong {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--rfx-nav-text);
+  font-family: "DM Sans", sans-serif;
+}
+
+.rfx-navbar-auth-item span {
+  font-size: 11.5px;
+  color: var(--rfx-nav-text-muted);
+}
+
+.rfx-navbar-auth-lock {
+  margin-left: auto;
+  color: var(--rfx-nav-danger);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+.rfx-navbar-auth-divider {
+  height: 1px;
+  background: var(--rfx-nav-drop-border);
+  margin: 6px 0;
+}
+
+/* ── Trust Badge ─────────────────────────────────────────── */
+.rfx-navbar-trust-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  font-family: "DM Sans", sans-serif;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.rfx-navbar-trust-badge--candidate {
+  background: rgba(0, 229, 255, 0.1);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  color: var(--rfx-nav-cyan);
+}
+
+.rfx-navbar-trust-badge--candidate:hover {
+  background: rgba(0, 229, 255, 0.18);
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.2);
+}
+
+.rfx-navbar-trust-badge--employer {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  color: var(--rfx-nav-amber);
+}
+
+.rfx-navbar-trust-val {
+  background: var(--rfx-nav-cyan);
+  color: #000;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 10px;
+}
+
+/* ── Mobile Toggle ───────────────────────────────────────── */
+.rfx-navbar-mobile-toggle {
+  display: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  align-items: center;
+  justify-content: center;
+  background: var(--rfx-nav-btn-ghost-bg);
+  border: 1px solid var(--rfx-nav-btn-ghost-border);
+  color: var(--rfx-nav-text-dim);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.rfx-navbar-mobile-toggle:hover {
+  background: var(--rfx-nav-hover-bg);
+  color: var(--rfx-nav-text);
+}
+
+@media (max-width: 1023px) {
+  .rfx-navbar-mobile-toggle {
+    display: flex;
+  }
+}
+
+/* ── Mobile Menu ─────────────────────────────────────────── */
+.rfx-navbar-mobile-menu {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  background: var(--rfx-nav-mobile-bg);
+  border-top: 1px solid var(--rfx-nav-border);
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.rfx-navbar-mobile-menu--open {
+  transform: translateX(0);
+}
+
+.rfx-navbar-mobile-links {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 4px;
+}
+
+.rfx-navbar-mobile-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--rfx-nav-text-dim);
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  font-family: "DM Sans", sans-serif;
+  transition: background 0.18s, color 0.18s, transform 0.18s;
+}
+
+.rfx-navbar-mobile-link:hover {
+  background: var(--rfx-nav-hover-bg);
+  color: var(--rfx-nav-text);
+  transform: translateX(4px);
+}
+
+.rfx-navbar-mobile-link--auth {
+  color: var(--rfx-nav-cyan);
+}
+
+.rfx-navbar-mobile-link--signup {
+  background: rgba(0, 229, 255, 0.06);
+  border: 1px solid rgba(0, 229, 255, 0.15);
+  color: var(--rfx-nav-cyan);
+}
+
+.rfx-navbar-mobile-link--admin {
+  color: var(--rfx-nav-danger);
+}
+
+.rfx-navbar-mobile-link--cta {
+  background: linear-gradient(135deg, #00bcd4, #0097a7);
+  color: #fff;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.rfx-navbar-mobile-divider {
+  height: 1px;
+  background: var(--rfx-nav-border);
+  margin: 8px 0;
+}
+
+/* ── Overlay ─────────────────────────────────────────────── */
+.rfx-navbar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  background: var(--rfx-nav-overlay);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.rfx-navbar-overlay--visible {
+  display: block;
+  opacity: 1;
+}
+
+@media (max-width: 1023px) {
+  .rfx-navbar-overlay--visible {
+    display: block;
+  }
+}
+
+/* ── Body offset for fixed navbar ────────────────────────── */
+body {
+  padding-top: 64px;
+}
+
+/* ── SweetAlert custom ───────────────────────────────────── */
+.rfx-swal-popup {
+  border: 1px solid rgba(239, 68, 68, 0.3) !important;
+  border-radius: 16px !important;
+  font-family: "DM Sans", sans-serif !important;
+}
+
+.rfx-swal-title {
+  font-family: "Syne", sans-serif !important;
+  font-weight: 800 !important;
+}
+
+/* ── Scrollbar in dropdowns ──────────────────────────────── */
+.rfx-navbar-mega-inner::-webkit-scrollbar,
+.rfx-navbar-auth-panel::-webkit-scrollbar {
+  width: 4px;
+}
+
+.rfx-navbar-mega-inner::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.rfx-navbar-mega-inner::-webkit-scrollbar-thumb {
+  background: var(--rfx-nav-border);
+  border-radius: 4px;
+}
+
+/* ── Responsive tweaks ───────────────────────────────────── */
+@media (max-width: 768px) {
+  .rfx-navbar-trust-badge {
+    display: none;
+  }
+
+  .rfx-navbar-right {
+    gap: 6px;
+  }
+
+  .rfx-navbar-logo-text {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rfx-navbar-public-nav,
+  .rfx-navbar-candidate-nav,
+  .rfx-navbar-employer-nav {
+    padding: 0 14px;
+  }
+
+  .rfx-navbar-logo-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .rfx-navbar-auth-drop,
+  .rfx-navbar-signup-drop {
+    display: none;
+  }
+}
